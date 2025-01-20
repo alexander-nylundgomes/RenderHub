@@ -1,0 +1,17 @@
+.file-row{
+    display: grid;
+    grid-template-columns: auto minmax(0,1fr) auto;
+}
+
+progress::-webkit-progress-bar{
+    background: transparent;
+}
+
+progress::-webkit-progress-value{
+    background: #2563eb;
+}
+/* 
+progress{
+    border-radius: 1rem;
+    overflow: hidden;
+} */

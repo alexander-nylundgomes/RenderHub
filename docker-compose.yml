@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  frontend: 
+    build: ./frontend/
+    networks:
+      - renderhub-network
+    ports: 
+      - 80:80
+    environment: 
+      - REACT_APP_BACKEND_URL=backend
+      - REACT_APP_BACKEND_PORT=8080
+  backend: 
+    build: ./backend/
+    # image: backend:latest
+    networks:
+      - renderhub-network
+    ports: 
+      - 8080:8080
+    volumes:
+      - renderhub-data:/media/assets
+    env_file:
+      - shared_variables.env
+  rabbitmq: 
+    networks: 
+      - renderhub-network
+    image: rabbitmq:3-management-alpine
+    env_file: "./shared_variables.env"
+    ports:
+      - 5672:5672
+      - 15672:15672
+  consumer: 
+    build: ./consumer/
+    # image: consumer:latest
+    env_file:
+      - shared_variables.env
+    networks:
+      - renderhub-network
+    volumes:
+      - renderhub-data:/media/assets/
+  postgres: 
+    image: postgres:latest
+    env_file:
+      - shared_variables.env
+    ports:
+      - 5433:5432
+    networks:
+      - renderhub-network
+    volumes:
+      - renderhub-data:/var/lib/postgresql/data
+networks:
+  renderhub-network:
+    driver: bridge
+volumes:
+  renderhub-data: 

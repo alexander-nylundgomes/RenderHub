@@ -1,0 +1,4 @@
+.render-wrapper{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20% minmax(0,1fr);
+}

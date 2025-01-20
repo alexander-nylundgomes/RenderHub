@@ -1,0 +1,10 @@
+.file-description{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.buttons{
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+}
